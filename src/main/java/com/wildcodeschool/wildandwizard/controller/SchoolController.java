@@ -26,6 +26,7 @@ public class SchoolController {
     @Autowired
     private WizardRepository wizardRepository;
 
+
     @GetMapping("/")
     public String getSchools(Model out) {
 
@@ -42,7 +43,10 @@ public class SchoolController {
         School school = new School();
         if (optionalSchool.isPresent()) {
             school = optionalSchool.get();
-        }
+            List<Wizard> wizards = wizardRepository.findAll();
+            out.addAttribute("schoolWizards", wizards);
+            }
+
         out.addAttribute("school", school);
         out.addAttribute("allWizards", wizardRepository.findAll());
 
@@ -101,4 +105,6 @@ public class SchoolController {
         }
         return null;
     }
+
+
 }
